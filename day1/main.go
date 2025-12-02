@@ -9,7 +9,7 @@ import (
 )
 
 var rotations []string
-var location = "/home/butter-july/桌面/12_1.txt"
+var location = "12_1.txt"
 var initialNumber = 50
 var currentNumber int
 var passwords int
