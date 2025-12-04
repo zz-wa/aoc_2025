@@ -8,15 +8,18 @@ import (
 )
 
 var contents []string
-var location = "12_3.txt"
+var location = "/home/butter-july/桌面/12_3.txt"
 
 func main() {
 	contents = ReadContent(location)
-	var totalMaxJolts int
+	var part1output int
+	var part2output int
 	for _, line := range contents {
-		totalMaxJolts += FindJolts(line, 2)
+		part1output += FindJolts(line, 2)
+		part2output += FindJolts(line, 12)
 	}
-	fmt.Println(totalMaxJolts)
+	fmt.Println(part1output)
+	fmt.Println(part2output)
 }
 func FindJolts(bank string, digits int) int {
 	output := 0
