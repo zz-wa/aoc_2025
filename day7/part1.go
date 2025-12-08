@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-var location = "12_7.txt"
+var location = "/home/butter-july/桌面/12_7.txt"
 
 func main() {
 	contents := ReadContent(location)
@@ -19,34 +19,39 @@ func Count(contents []string) int {
 	for index, value := range contents[0] {
 		if string(value) == "S" {
 			StartIndex = index
+			break
 		}
 	}
-	beams := map[int]bool{StartIndex: true}
+
+	width := len(contents[0])
+	curr := make([]int, width)
+	curr[StartIndex] = 1
+
 	total := 0
 	for _, row := range contents[1:] {
+		nextCurr := make([]int, width)
+		for col := 0; col < width; col++ {
+			if curr[col] > 0 {
+				char := row[col]
+				if char == '^' {
+					total++
+					if col > 0 {
+						nextCurr[col-1] += curr[col]
+					}
+					if col < width-1 {
+						nextCurr[col+1] += curr[col]
+					}
 
-		nextBeams := make(map[int]bool)
-		split := make(map[int]bool)
-
-		for beam := range beams {
-			if beam >= 0 && beam < len(row) {
-				char := row[beam]
-				if string(char) == "^" {
-					split[beam] = true
 				} else {
-					nextBeams[beam] = true
+					nextCurr[col] += curr[col]
 				}
 			}
 		}
-		total += len(split)
-		for spiltCol := range split {
-			nextBeams[spiltCol+1] = true
-			nextBeams[spiltCol-1] = true
-		}
-		beams = nextBeams
+		curr = nextCurr
 	}
 	return total
 }
+
 func ReadContent(location string) []string {
 	var c []string
 	file, err := os.Open(location)
