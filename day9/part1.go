@@ -38,8 +38,8 @@ func MaxArea(points []Point) int {
 }
 func Calculate(i, j int, points []Point) int {
 
-	length := math.Abs(float64(points[i].col-points[j].col) + 1)
-	width := math.Abs(float64(points[i].row-points[j].row) + 1)
+	length := math.Abs(float64(points[i].col-points[j].col))+1
+	width := math.Abs(float64(points[i].row-points[j].row) )+1
 	return int(length * width)
 }
 func SpiltElements(contents []string) []Point {
